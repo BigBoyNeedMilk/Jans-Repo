@@ -1,25 +1,25 @@
-Car myCar1;
-Car myCar2;
-Car myCar3;
+Car rect1;
+Car rect2;
+Car rect3;
 
 void setup() {
   size(640, 360);
-  myCar1 = new Car(color(51), 0, 100, 2); 
-  myCar2 = new Car(color(151), 0, 300, 1);
-  myCar3 = new Car(color(151), 0, 200, 69);
+  rect1 = new Car(color(51), 0, 100, 2); 
+  rect2 = new Car(color(151), 0, 300, 1);
+  rect3 = new Car(color(151), 0, 200, 69);
 }
 
 void draw() {
   background(255);
-  myCar1.move();
-  myCar1.display();
-  myCar2.move();
-  myCar2.display();
-  myCar3.move();
-  myCar3.display();
+  rect1.move();
+  rect1.display();
+  rect2.move();
+  rect2.display();
+  rect3.move();
+  rect3.display();
 }
 
-class Car { // Even though there are multiple objects, we still only need one class. No matter how many cookies we make, only one cookie cutter is needed.Isn’t object-oriented programming swell?
+class Car {
   color c;
   float xpos;
   float ypos;
@@ -35,8 +35,8 @@ class Car { // Even though there are multiple objects, we still only need one cl
   void display() {
     stroke(0);
     fill(c);
-    rectMode(CENTER);
-    rect(xpos, ypos, 20, 10);
+    ellipseMode(CENTER);
+    ellipse(xpos, ypos, 69, 10);
   }
 
   void move() {
