@@ -1,13 +1,13 @@
 int down, right, down1, right1;
-int p0,p1;//for double hop
-boolean click;//først click for at vælge en brik, og derefter rykke den
+int p0,p1;//for doublehop
+boolean click;//første click for at vælge en brik, og derefter rykke den
 boolean WHITE = true;
 boolean BLACK = false;
 boolean turn;//spillerens tur
 boolean promote;
 boolean doubleJump, jumping;
 boolean gameOver;
-PImage wKing, bKing, wPawn, bPawn;
+PImage whiteKing, redKing, whitePawn, redPawn; 
 PImage[][] board;
 
 //restart knap
@@ -22,14 +22,14 @@ void setup() {
   textSize(width/8);
   textAlign(CENTER);
 
-  wKing = loadImage("Konge.png");
-  bKing = loadImage("Konge1.png");
-  wPawn = loadImage("Bonde.png");
-  bPawn = loadImage("Bonde1.png");
-  wKing.resize(width/8, height/8);
-  bKing.resize(width/8, height/8);
-  wPawn.resize(width/8, height/8);
-  bPawn.resize(width/8, height/8);
+  whiteKing = loadImage("Konge.png");
+  redKing = loadImage("Konge1.png");
+  whitePawn = loadImage("Bonde.png");
+  redPawn = loadImage("Bonde1.png");
+  whiteKing.resize(width/8, height/8);
+  redKing.resize(width/8, height/8);
+  whitePawn.resize(width/8, height/8);
+  redPawn.resize(width/8, height/8);
   startPosition();
 }
 void draw() {
@@ -77,34 +77,34 @@ void mousePressed() {
     click = true;
   }
 }
-void startPosition() {
+void startPosition() { //position af alle brikkerne
   board = new PImage[8][8];
 
-  board[0][1] = bPawn;
-  board[0][3] = bPawn;
-  board[0][5] = bPawn; 
-  board[0][7] = bPawn;
-  board[1][0] = bPawn;
-  board[1][2] = bPawn;
-  board[1][4] = bPawn;
-  board[1][6] = bPawn;
-  board[2][1] = bPawn;
-  board[2][3] = bPawn;
-  board[2][5] = bPawn; 
-  board[2][7] = bPawn;
+  board[0][1] = redPawn;
+  board[0][3] = redPawn;
+  board[0][5] = redPawn; 
+  board[0][7] = redPawn;
+  board[1][0] = redPawn;
+  board[1][2] = redPawn;
+  board[1][4] = redPawn;
+  board[1][6] = redPawn;
+  board[2][1] = redPawn;
+  board[2][3] = redPawn;
+  board[2][5] = redPawn; 
+  board[2][7] = redPawn;
 
-  board[5][0] = wPawn;
-  board[5][2] = wPawn;
-  board[5][4] = wPawn;
-  board[5][6] = wPawn;
-  board[6][1] = wPawn;
-  board[6][3] = wPawn;
-  board[6][5] = wPawn;
-  board[6][7] = wPawn;
-  board[7][0] = wPawn;
-  board[7][2] = wPawn;
-  board[7][4] = wPawn;
-  board[7][6] = wPawn;
+  board[5][0] = whitePawn;
+  board[5][2] = whitePawn;
+  board[5][4] = whitePawn;
+  board[5][6] = whitePawn;
+  board[6][1] = whitePawn;
+  board[6][3] = whitePawn;
+  board[6][5] = whitePawn;
+  board[6][7] = whitePawn;
+  board[7][0] = whitePawn;
+  board[7][2] = whitePawn;
+  board[7][4] = whitePawn;
+  board[7][6] = whitePawn;
 
   //globale variabler
   promote = false;
@@ -115,15 +115,15 @@ void startPosition() {
   doubleJump = false;
 }
 PImage[][] movePiece(int i0, int j0, int i1, int j1, PImage[][] Board) {
-  if (Board[i0][j0] == wPawn) {
+  if (Board[i0][j0] == whitePawn) {
     if (i1 == 0) {
-      Board[i0][j0] = wKing;
+      Board[i0][j0] = whiteKing;
       promote = true;
       doubleJump = false;
     }
-  } else if (Board[i0][j0] == bPawn) {
+  } else if (Board[i0][j0] == redPawn) {
     if (i1 == 7) {
-      Board[i0][j0] = bKing;
+      Board[i0][j0] = redKing;
       promote = true;
       doubleJump = false;
     }
@@ -203,7 +203,7 @@ boolean validMove(int down, int right, int down1, int right1, boolean side, PIma
     if(abs(right1-right) != 2) return false;
   }
   if (side == WHITE) {//hvid
-    if (Board[down][right] == wPawn) {
+    if (Board[down][right] == whitePawn) {
       if (abs(right1 - right) == 1 && down1 == down-1 && Board[down1][right1] == null) { // ryk 1 fremad
         return true;
       }
@@ -211,7 +211,7 @@ boolean validMove(int down, int right, int down1, int right1, boolean side, PIma
         black(down-1, (right + right1)/2, Board)) { //hop
         return true;
       }
-    } else if (Board[down][right] == wKing) {
+    } else if (Board[down][right] == whiteKing) {
       if (abs(right1 - right) == 1 && abs(down1-down) == 1 && Board[down1][right1] == null) { // ryk 1 fremad
         return true;
       }
@@ -221,7 +221,7 @@ boolean validMove(int down, int right, int down1, int right1, boolean side, PIma
       }
     }
   } else {
-    if (Board[down][right] == bPawn) {
+    if (Board[down][right] == redPawn) {
       if (abs(right1 - right) == 1 && down1 == down+1 && Board[down1][right1] == null) { // ryk 1 fremad
         return true;
       }
@@ -229,7 +229,7 @@ boolean validMove(int down, int right, int down1, int right1, boolean side, PIma
         white(down+1, (right + right1)/2, Board)) { //hop
         return true;
       }
-    } else if (Board[down][right] == bKing) {
+    } else if (Board[down][right] == redKing) {
       if (abs(right1 - right) == 1 && abs(down1-down) == 1 && Board[down1][right1] == null) { // ryk 1 fremad
         return true;
       }
@@ -242,10 +242,10 @@ boolean validMove(int down, int right, int down1, int right1, boolean side, PIma
   return false;
 }
 boolean black (int down1, int right1, PImage[][] Board) {
-  return (Board[down1][right1] == bPawn || Board[down1][right1] == bKing);
+  return (Board[down1][right1] == redPawn || Board[down1][right1] == redKing);
 }
 boolean white (int down1, int right1, PImage[][] Board) {
-  return (Board[down1][right1] == wPawn || Board[down1][right1] == wKing);
+  return (Board[down1][right1] == whitePawn || Board[down1][right1] == whiteKing);
 }
 boolean notBlack (int down1, int right1, PImage[][] Board) {
   return (white(down1, right1, Board) || Board[down1][right1] ==null);
